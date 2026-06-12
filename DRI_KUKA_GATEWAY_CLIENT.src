@@ -1,0 +1,53 @@
+&ACCESS RVP
+&REL 1
+&PARAM EDITMASK = *
+DEF DRI_KUKA_GATEWAY_CLIENT()
+
+   DECL EKI_STATUS RET
+   DECL INT DRI_STATUS
+   DECL INT DRI_CELL
+   DECL INT DRI_PART
+   DECL INT DRI_CONFIDENCE
+
+   RET = EKI_Init("DRI_GATEWAY")
+   RET = EKI_Open("DRI_GATEWAY")
+
+   ; Ask adapter for the next DRI target.
+   RET = EKI_SetString("DRI_GATEWAY", "Request/Command", "GET_NEXT")
+   RET = EKI_Send("DRI_GATEWAY", "Request")
+
+   ; Wait a short moment for the answer.
+   WAIT SEC 0.05
+
+   RET = EKI_GetInt("DRI_GATEWAY", "DRI/Status", DRI_STATUS)
+   RET = EKI_GetInt("DRI_GATEWAY", "DRI/Cell", DRI_CELL)
+   RET = EKI_GetInt("DRI_GATEWAY", "DRI/Part", DRI_PART)
+   RET = EKI_GetInt("DRI_GATEWAY", "DRI/Confidence", DRI_CONFIDENCE)
+
+   IF DRI_STATUS == 1 THEN
+      ; Valid DRI target:
+      ; DRI_CELL       = board cell 1..16
+      ; DRI_PART       = part ID
+      ; DRI_CONFIDENCE = confidence 0..100
+
+      SWITCH DRI_CELL
+      CASE 1
+         ; CALL PICK_BOARD_01()
+      CASE 2
+         ; CALL PICK_BOARD_02()
+      CASE 3
+         ; CALL PICK_BOARD_03()
+      CASE 4
+         ; CALL PICK_BOARD_04()
+      DEFAULT
+         ; Add all 16 board cells here.
+      ENDSWITCH
+
+   ELSE
+      ; 0 = board empty, 2 = uncertain, 9 = error
+   ENDIF
+
+   RET = EKI_Close("DRI_GATEWAY")
+   RET = EKI_Clear("DRI_GATEWAY")
+
+END
