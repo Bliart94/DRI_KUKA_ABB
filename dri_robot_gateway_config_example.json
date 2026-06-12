@@ -1,0 +1,18 @@
+{
+  "dri_server": {
+    "host": "127.0.0.1",
+    "port": 5005
+  },
+  "gateways": {
+    "abb": {
+      "listen_host": "0.0.0.0",
+      "listen_port": 6101,
+      "format": "abb"
+    },
+    "kuka": {
+      "listen_host": "0.0.0.0",
+      "listen_port": 6102,
+      "format": "kuka_xml"
+    }
+  }
+}
