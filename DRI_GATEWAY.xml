@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<EthernetKRL>
+  <CONFIGURATION>
+    <EXTERNAL>
+      <IP>192.168.0.10</IP>
+      <PORT>6102</PORT>
+    </EXTERNAL>
+    <INTERNAL>
+      <ENVIRONMENT>Program</ENVIRONMENT>
+      <BUFFERING Mode="FIFO" Limit="512"/>
+      <ALIVE Set_Flag="999"/>
+    </INTERNAL>
+  </CONFIGURATION>
+
+  <SEND>
+    <XML>
+      <ELEMENT Tag="Request/Command"/>
+    </XML>
+  </SEND>
+
+  <RECEIVE>
+    <XML>
+      <ELEMENT Tag="DRI/Status" Type="INT"/>
+      <ELEMENT Tag="DRI/Cell" Type="INT"/>
+      <ELEMENT Tag="DRI/Part" Type="INT"/>
+      <ELEMENT Tag="DRI/Confidence" Type="INT"/>
+    </XML>
+  </RECEIVE>
+</EthernetKRL>
